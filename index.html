@@ -24,6 +24,10 @@
       --there-soft: rgba(214, 36, 110, .10);
       --here-soft: rgba(35, 67, 214, .08);
       --focus: #2343D6;
+      --ocean: #CFDCE8;
+      --land: #F8F9FB;
+      --border: #B9C4D0;
+      --grid: #93A6BA;
       --display: 'Unbounded', 'Golos Text', system-ui, sans-serif;
       --text: 'Golos Text', system-ui, -apple-system, 'Segoe UI', sans-serif;
       --panel-w: 400px;
@@ -41,6 +45,10 @@
         --there-soft: rgba(255, 92, 154, .13);
         --here-soft: rgba(125, 146, 255, .12);
         --focus: #7D92FF;
+        --ocean: #0C1520;
+        --land: #1F2D3D;
+        --border: #354A60;
+        --grid: #3E5670;
         color-scheme: dark;
       }
     }
@@ -214,7 +222,19 @@
     @keyframes ping { 0% { transform: scale(.4); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
     @media (prefers-reduced-motion: reduce) { .pin.there::after { animation: none; } }
     .leaflet-tooltip { font: 500 13px var(--text); }
-    .leaflet-container { font: inherit; background: var(--paper); }
+    .leaflet-container { font: inherit; background: var(--ocean); }
+    .readout {
+      position: absolute; z-index: 600; left: 16px; top: 16px; max-width: calc(100% - 90px);
+      display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+      padding: 6px 12px; font-size: 14px; pointer-events: none;
+      box-shadow: 0 1px 2px rgba(20, 32, 43, .12);
+    }
+    .readout[hidden] { display: none; }
+    .readout .h { color: var(--here); font-weight: 600; }
+    .readout .t { color: var(--there); font-weight: 600; }
+    .readout .x { color: var(--muted); }
+    .split .readout { top: 52px; }
 
     /* ---------- phones ---------- */
     @media (max-width: 820px) {
@@ -297,6 +317,7 @@
         <button class="tool" id="geoBtn" type="button">My antipode</button>
       </div>
       <div class="status" id="status">Loading country outlines…</div>
+      <div class="readout" id="readout" hidden></div>
       <div class="toast" id="toast" role="status" hidden></div>
     </main>
   </div>
